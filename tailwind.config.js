@@ -17,7 +17,11 @@ module.exports = {
         100: "#ff7675"
       }
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'arrow-down': "url('/assets/arrow-down.svg')"
+      }
+    },
   },
   plugins: [],
 }
