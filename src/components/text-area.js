@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-export const TextBoxComponent = (props) => {
+export const TextAreaComponent = (props) => {
   const [value, setValue] = useState('')
   const onChange = (e) => {
     if (props.isNumberOnly) {
@@ -14,7 +14,7 @@ export const TextBoxComponent = (props) => {
   let error
   if(props.isError) {
     error = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>{props.errorCause}</p>
+        <p className='text-sm pl-1 text-red-rof-100 float-left'>{props.errorCause}</p>
     )
   }
 
@@ -42,13 +42,15 @@ export const TextBoxComponent = (props) => {
           props.isError ? 'border-red-rof-100' : 'border-gray-rof-200'
         } p-1 rounded-md`}
       >
-        <input
+        <textarea
           type={props.type}
           value={value}
           onChange={onChange}
           placeholder={props.placeholder}
           maxLength={props.maxLength}
-          className='w-full focus:outline-none truncate align-middle p-1'
+          rows={props.rows}
+          cols={100}
+          className='w-full focus:outline-none p-1'
         />
       </div>
       <div className='text-center mt-1'>
@@ -59,19 +61,20 @@ export const TextBoxComponent = (props) => {
   )
 }
 
-TextBoxComponent.defaultProps = {
-  type: 'text',
-  placeholder: 'Full Name',
+TextAreaComponent.defaultProps = {
+  type: 'textarea',
+  placeholder: 'Type here',
   maxLength: 1000,
   isNumberOnly: false,
   isError: false,
   errorCause: 'Please enter the data correctly',
   label: "",
   isRequired: false,
-  countDown: false
+  countDown: false,
+  rows: 5
 }
 
-TextBoxComponent.propTypes = {
+TextAreaComponent.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number,
@@ -80,5 +83,6 @@ TextBoxComponent.propTypes = {
   errorCause: PropTypes.string,
   label: PropTypes.string,
   isRequired: PropTypes.bool,
-  countDown: PropTypes.bool
+  countDown: PropTypes.bool,
+  rows: PropTypes.number
 }

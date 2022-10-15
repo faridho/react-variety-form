@@ -1,4 +1,6 @@
 import './index.css'
-import { TextBoxComp } from './components/text-box'
+import { TextBoxComponent } from './components/text-box'
+import { TextAreaComponent } from "./components/text-area"
 
-export const TextBox = TextBoxComp;
+export const TextBox = TextBoxComponent;
+export const TextArea = TextAreaComponent;

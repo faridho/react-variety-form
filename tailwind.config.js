@@ -8,6 +8,7 @@ module.exports = {
       "gray-rof": {
         100: "#f1f2f6",
         200: "#dfe4ea",
+        300: "#95a5a6"
       },
       "black-rof": {
         100: "#747d8c"
