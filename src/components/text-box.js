@@ -40,7 +40,7 @@ export const TextBoxComponent = (props) => {
       <div
         className={`w-full border border-solid ${
           props.isError ? 'border-red-rof-100' : 'border-gray-rof-200'
-        } p-1 rounded-md`}
+        } p-1 ${props.isRounded && 'rounded-md'}`}
       >
         <input
           type={props.type}
@@ -68,7 +68,8 @@ TextBoxComponent.defaultProps = {
   errorCause: 'Please enter the data correctly',
   label: "",
   isRequired: false,
-  countDown: false
+  countDown: false,
+  isRounded: false
 }
 
 TextBoxComponent.propTypes = {
@@ -80,5 +81,6 @@ TextBoxComponent.propTypes = {
   errorCause: PropTypes.string,
   label: PropTypes.string,
   isRequired: PropTypes.bool,
-  countDown: PropTypes.bool
+  countDown: PropTypes.bool,
+  isRounded: PropTypes.bool
 }

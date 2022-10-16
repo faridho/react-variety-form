@@ -40,7 +40,7 @@ export const TextAreaComponent = (props) => {
       <div
         className={`w-full border border-solid ${
           props.isError ? 'border-red-rof-100' : 'border-gray-rof-200'
-        } p-1 rounded-md`}
+        } p-1 ${props.isRounded && 'rounded-md'}`}
       >
         <textarea
           type={props.type}
@@ -71,7 +71,8 @@ TextAreaComponent.defaultProps = {
   label: "",
   isRequired: false,
   countDown: false,
-  rows: 5
+  rows: 5,
+  isRounded: false
 }
 
 TextAreaComponent.propTypes = {
@@ -84,5 +85,6 @@ TextAreaComponent.propTypes = {
   label: PropTypes.string,
   isRequired: PropTypes.bool,
   countDown: PropTypes.bool,
-  rows: PropTypes.number
+  rows: PropTypes.number,
+  isRounded: PropTypes.bool
 }

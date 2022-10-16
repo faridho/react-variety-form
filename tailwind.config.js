@@ -14,7 +14,7 @@ module.exports = {
         100: "#747d8c"
       },
       "red-rof": {
-        100: "#ff7675"
+        100: "#e74c3c"
       }
     },
     extend: {

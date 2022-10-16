@@ -29,6 +29,7 @@ const App = () => {
             rows={3}
             maxLength={120}
             countDown={true}
+            isRounded
           />
         </div>
       </div>

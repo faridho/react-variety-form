@@ -24,7 +24,7 @@ export const SelectComponent = (props) => {
       </div>
 
       <select
-        className={`border border-gray-rof-200 w-full rounded-md p-2`}
+        className={`border border-gray-rof-200 w-full ${props.isRounded && 'rounded-md'} p-2`}
         style={Arrow}
       >
         <option>Select Gender</option>
@@ -40,14 +40,16 @@ SelectComponent.defaultProps = {
   label: 'Gender',
   isError: false,
   errorCause: 'Please select the data correctly',
-  isRequired: false
+  isRequired: false,
+  isRounded: false
 }
 
 SelectComponent.propTypes = {
   label: PropTypes.string,
   isError: PropTypes.bool,
   errorCause: PropTypes.string,
-  isRequired: PropTypes.bool
+  isRequired: PropTypes.bool,
+  isRounded: PropTypes.bool
 }
 
 const Arrow = {
@@ -55,5 +57,5 @@ const Arrow = {
   backgroundImage: `url(${ArrowDown})`,
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'right 0.7rem top 50%',
-  backgroundSize: '0.65rem auto'
+  backgroundSize: '0.65rem auto',
 }
