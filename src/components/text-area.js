@@ -4,11 +4,7 @@ import PropTypes from 'prop-types'
 export const TextAreaComponent = (props) => {
   const [value, setValue] = useState('')
   const onChange = (e) => {
-    if (props.isNumberOnly) {
-      setValue(e.target.value.replace(/[^0-9.]+/g, ''))
-    } else {
-      setValue(e.target.value)
-    }
+    setValue(e.target.value)
   }
 
   let error
@@ -32,25 +28,26 @@ export const TextAreaComponent = (props) => {
     )
   }
   return (
-    <div className='p-1'>
+    <div>
       <div className='flex font-bold pb-1'>
         {props.label}
         {required}
       </div>
       <div
-        className={`w-full border border-solid ${
+        className={`w-full border border-solid ${props.isDisabled && 'bg-gray-rof-100'} ${
           props.isError ? 'border-red-rof-100' : 'border-gray-rof-200'
         } p-1 ${props.isRounded && 'rounded-md'}`}
       >
         <textarea
-          type={props.type}
+          type="textarea"
           value={value}
           onChange={onChange}
           placeholder={props.placeholder}
           maxLength={props.maxLength}
           rows={props.rows}
           cols={100}
-          className='w-full focus:outline-none p-1'
+          className={`w-full focus:outline-none p-1 ${props.isDisabled && 'bg-gray-rof-100 cursor-not-allowed'}`}
+          disabled={props.isDisabled}
         />
       </div>
       <div className='text-center mt-1'>
@@ -62,29 +59,27 @@ export const TextAreaComponent = (props) => {
 }
 
 TextAreaComponent.defaultProps = {
-  type: 'textarea',
   placeholder: 'Type here',
   maxLength: 1000,
-  isNumberOnly: false,
   isError: false,
   errorCause: 'Please enter the data correctly',
-  label: "",
+  label: "Address",
   isRequired: false,
   countDown: false,
   rows: 5,
-  isRounded: false
+  isRounded: false,
+  isDisabled: false
 }
 
 TextAreaComponent.propTypes = {
-  type: PropTypes.string,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number,
-  isNumberOnly: PropTypes.bool,
   isError: PropTypes.bool,
   errorCause: PropTypes.string,
   label: PropTypes.string,
   isRequired: PropTypes.bool,
   countDown: PropTypes.bool,
   rows: PropTypes.number,
-  isRounded: PropTypes.bool
+  isRounded: PropTypes.bool,
+  isDisabled: PropTypes.bool
 }

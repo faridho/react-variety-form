@@ -32,13 +32,13 @@ export const TextBoxComponent = (props) => {
     )
   }
   return (
-    <div className='p-1'>
+    <div>
       <div className='flex font-bold pb-1'>
         {props.label}
         {required}
       </div>
       <div
-        className={`w-full border border-solid ${
+        className={`w-full border border-solid ${props.isDisabled && 'bg-gray-rof-100'} ${
           props.isError ? 'border-red-rof-100' : 'border-gray-rof-200'
         } p-1 ${props.isRounded && 'rounded-md'}`}
       >
@@ -48,7 +48,8 @@ export const TextBoxComponent = (props) => {
           onChange={onChange}
           placeholder={props.placeholder}
           maxLength={props.maxLength}
-          className='w-full focus:outline-none truncate align-middle p-1'
+          className={`w-full focus:outline-none truncate align-middle p-1 ${props.isDisabled && 'cursor-not-allowed bg-gray-rof-100'} `}
+          disabled={props.isDisabled}
         />
       </div>
       <div className='text-center mt-1'>
@@ -66,10 +67,11 @@ TextBoxComponent.defaultProps = {
   isNumberOnly: false,
   isError: false,
   errorCause: 'Please enter the data correctly',
-  label: "",
+  label: "Full Name",
   isRequired: false,
   countDown: false,
-  isRounded: false
+  isRounded: false,
+  isDisabled: false
 }
 
 TextBoxComponent.propTypes = {
@@ -82,5 +84,6 @@ TextBoxComponent.propTypes = {
   label: PropTypes.string,
   isRequired: PropTypes.bool,
   countDown: PropTypes.bool,
-  isRounded: PropTypes.bool
+  isRounded: PropTypes.bool,
+  isDisabled: PropTypes.bool
 }
