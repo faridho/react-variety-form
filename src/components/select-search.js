@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Icon } from './icons'
 
 export const SelectSearchComponent = (props) => {
+  const [display, setDisplay] = useState("Search a category")
+
   const ref = useRef(null)
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,8 +30,15 @@ export const SelectSearchComponent = (props) => {
   }
 
   const [searchValue, setSearch] = useState('')
+  const [options, setOptions] = useState([])
   const onSearch = (e) => {
     setSearch(e.target.value)
+    if (searchValue.length > 0) {
+      const optionsFiltered = props.data.filter((item) =>
+        item[props.name].toLowerCase().includes(e.target.value.toLowerCase())
+      )
+      setOptions(optionsFiltered)
+    }
   }
 
   let error
@@ -42,6 +51,29 @@ export const SelectSearchComponent = (props) => {
     required = <span className='pl-1 text-red-rof-100'>*</span>
   }
 
+  const setSelected = (name, value) => {
+    props.onChange({
+      [props.name]: name,
+      [props.value]: value
+    })
+  }
+
+  let listOptions
+  if (searchValue.length > 0) {
+    listOptions = options.map((item, index) => (
+      <li
+        key={index}
+        className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'
+        onClick={() => {
+          setDisplay(item[props.name])
+          setDropDown(false)
+          setSelected(item[props.name], item[props.value])
+        }}
+      >
+        {item[props.name]}
+      </li>
+    ))
+  }
   let list
   if (dropDown) {
     list = (
@@ -64,11 +96,7 @@ export const SelectSearchComponent = (props) => {
           />
         </div>
         {error}
-        <ul className='overflow-y-auto frame  h-40'>
-          <li className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'>
-            Tinky Winky
-          </li>
-        </ul>
+        <ul className='overflow-y-auto frame  h-40'>{listOptions}</ul>
       </div>
     )
   }
@@ -84,7 +112,7 @@ export const SelectSearchComponent = (props) => {
           props.isRounded && 'rounded-md'
         } ${dropDown && 'rounded-b-none'} `}
       >
-        <p className='p-1'>Search a category</p>
+        <p className='p-1'>{display}</p>
         <div className='pt-1.5 pl-2'>
           <Icon name={iconName} />
         </div>
@@ -100,7 +128,11 @@ SelectSearchComponent.defaultProps = {
   isRequired: false,
   isError: false,
   errorCause: 'Error select',
-  isRounded: false
+  isRounded: false,
+  data: [],
+  name: '',
+  value: '',
+  onChange: () => {},
 }
 
 SelectSearchComponent.propTypes = {
@@ -109,5 +141,8 @@ SelectSearchComponent.propTypes = {
   isRequired: PropTypes.bool,
   isError: PropTypes.bool,
   errorCause: PropTypes.string,
-  isRounded: PropTypes.bool
+  isRounded: PropTypes.bool,
+  data: PropTypes.array,
+  name: PropTypes.string,
+  value: PropTypes.string
 }
