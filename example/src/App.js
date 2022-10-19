@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelectSearch } from 'react-variety-form'
+import { Radios } from 'react-variety-form'
 import 'react-variety-form/dist/index.css'
 
 const list = [
@@ -18,7 +18,7 @@ const App = () => {
     <div className='mt-36 px-2'>
       <div className=' w-full flex flex-row'>
         <div className='w-6/12 p-1'>
-          <SelectSearch isRounded value="id" name="value" data={list} />
+          <Radios isRequired />
         </div>
         <div className='w-6/12 p-1'>
           

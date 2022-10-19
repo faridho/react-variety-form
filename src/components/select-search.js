@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Icon } from './icons'
 
 export const SelectSearchComponent = (props) => {
-  const [display, setDisplay] = useState("Search a category")
+  const [display, setDisplay] = useState('Search a category')
 
   const ref = useRef(null)
   useEffect(() => {
@@ -26,7 +26,9 @@ export const SelectSearchComponent = (props) => {
 
   const [dropDown, setDropDown] = useState(false)
   const changeDropdDown = () => {
-    setDropDown(!dropDown)
+    if (!props.isDisabled) {
+      setDropDown(!dropDown)
+    }
   }
 
   const [searchValue, setSearch] = useState('')
@@ -60,19 +62,27 @@ export const SelectSearchComponent = (props) => {
 
   let listOptions
   if (searchValue.length > 0) {
-    listOptions = options.map((item, index) => (
-      <li
-        key={index}
-        className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'
-        onClick={() => {
-          setDisplay(item[props.name])
-          setDropDown(false)
-          setSelected(item[props.name], item[props.value])
-        }}
-      >
-        {item[props.name]}
-      </li>
-    ))
+    if (options.length > 0) {
+      listOptions = options.map((item, index) => (
+        <li
+          key={index}
+          className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'
+          onClick={() => {
+            setDisplay(item[props.name])
+            setDropDown(false)
+            setSelected(item[props.name], item[props.value])
+          }}
+        >
+          {item[props.name]}
+        </li>
+      ))
+    } else {
+      listOptions = (
+        <li className='max-w-full text-sm p-2'>
+          Not found
+        </li>
+      )
+    }
   }
   let list
   if (dropDown) {
@@ -108,9 +118,11 @@ export const SelectSearchComponent = (props) => {
       </div>
       <div
         onClick={changeDropdDown}
-        className={`w-full flex cursor-pointer justify-between border border-solid border-gray-rof-200 p-1 ${
-          props.isRounded && 'rounded-md'
-        } ${dropDown && 'rounded-b-none'} `}
+        className={`w-full flex cursor-pointer justify-between border border-solid border-gray-rof-200 ${
+          props.isDisabled && 'bg-gray-rof-100 cursor-not-allowed'
+        } p-1 ${props.isRounded && 'rounded-md'} ${
+          dropDown && 'rounded-b-none'
+        } `}
       >
         <p className='p-1'>{display}</p>
         <div className='pt-1.5 pl-2'>
@@ -132,7 +144,8 @@ SelectSearchComponent.defaultProps = {
   data: [],
   name: '',
   value: '',
-  onChange: () => {},
+  isDisabled: false,
+  onChange: () => {}
 }
 
 SelectSearchComponent.propTypes = {
@@ -144,5 +157,6 @@ SelectSearchComponent.propTypes = {
   isRounded: PropTypes.bool,
   data: PropTypes.array,
   name: PropTypes.string,
+  isDisabled: PropTypes.bool,
   value: PropTypes.string
 }
