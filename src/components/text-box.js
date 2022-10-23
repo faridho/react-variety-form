@@ -86,7 +86,7 @@ export const TextBoxComponent = (props) => {
       >
         <input
           type={props.type}
-          value={value}
+          value={props.value || value}
           onChange={onChange}
           placeholder={props.placeholder}
           maxLength={props.maxLength}
@@ -117,6 +117,7 @@ TextBoxComponent.defaultProps = {
   errorCause: 'Please enter data correctly',
   mandatoryMessage: 'Field is required!',
   label: 'Full Name',
+  value: '',
   isRequired: false,
   countDown: false,
   isRounded: false,
@@ -135,6 +136,7 @@ TextBoxComponent.propTypes = {
   errorCause: PropTypes.string,
   mandatoryMessage: PropTypes.string,
   label: PropTypes.string,
+  value: PropTypes.string,
   isRequired: PropTypes.bool,
   countDown: PropTypes.bool,
   isRounded: PropTypes.bool,

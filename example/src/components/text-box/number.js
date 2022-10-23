@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TextBox } from 'react-variety-form'
-import UseFormInput from './use-form-input'
+import UseFormInput from '../use-form-input'
 
 const Number = () => {
   const phone = UseFormInput('')
@@ -10,7 +10,7 @@ const Number = () => {
       <div className=' text-gray-black-100 text-sm pt-5'>
         <div className='font-bold'>Number</div>
         <p>
-          Give avalidation to check number when input.
+          Input validation for number necessary.
         </p>
       </div>
       <div className='border border-gray-rof-200 rounded-t-md p-5 mt-5'>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TextBox } from 'react-variety-form'
-import UseFormInput from './use-form-input'
+import UseFormInput from '../use-form-input'
 
 const CountDown = () => {
   const status = UseFormInput('')

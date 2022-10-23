@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { Icon } from './icons'
 
 export const SelectSearchComponent = (props) => {
-  const [display, setDisplay] = useState('Search a category')
+  const [display, setDisplay] = useState({
+    name: props.direction,
+    value: ''
+  })
 
   const ref = useRef(null)
   useEffect(() => {
@@ -60,7 +63,22 @@ export const SelectSearchComponent = (props) => {
     })
   }
 
-  let listOptions
+  let listOptions = props.data.map((item, index) => (
+    <li
+      key={index}
+      className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'
+      onClick={() => {
+        setDisplay({
+          name: item[props.name],
+          value: item[props.value]
+        })
+        setDropDown(false)
+        setSelected(item[props.name], item[props.value])
+      }}
+    >
+      {item[props.name]}
+    </li>
+  ))
   if (searchValue.length > 0) {
     if (options.length > 0) {
       listOptions = options.map((item, index) => (
@@ -68,7 +86,10 @@ export const SelectSearchComponent = (props) => {
           key={index}
           className='max-w-full cursor-pointer text-sm hover:bg-gray-rof-100 p-2'
           onClick={() => {
-            setDisplay(item[props.name])
+            setDisplay({
+              name: item[props.name],
+              value: item[props.value]
+            })
             setDropDown(false)
             setSelected(item[props.name], item[props.value])
           }}
@@ -77,11 +98,7 @@ export const SelectSearchComponent = (props) => {
         </li>
       ))
     } else {
-      listOptions = (
-        <li className='max-w-full text-sm p-2'>
-          Not found
-        </li>
-      )
+      listOptions = <li className='max-w-full text-sm p-2'>Not found</li>
     }
   }
   let list
@@ -124,7 +141,7 @@ export const SelectSearchComponent = (props) => {
           dropDown && 'rounded-b-none'
         } `}
       >
-        <p className='p-1'>{display}</p>
+        <p className='p-1'>{display.name}</p>
         <div className='pt-1.5 pl-2'>
           <Icon name={iconName} />
         </div>
@@ -145,6 +162,7 @@ SelectSearchComponent.defaultProps = {
   name: '',
   value: '',
   isDisabled: false,
+  direction: 'Search a category',
   onChange: () => {}
 }
 
@@ -157,6 +175,7 @@ SelectSearchComponent.propTypes = {
   isRounded: PropTypes.bool,
   data: PropTypes.array,
   name: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
+  direction: PropTypes.string,
+  isDisabled: PropTypes.bool
 }

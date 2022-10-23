@@ -1,5 +1,10 @@
 import React from 'react'
 import TextBoxComponent from './components/text-box/index'
+import TextAreaComponent from './components/text-area'
+import SelectComponent from './components/select/index'
+import SelectSearchComponent from './components/select-search/index.js'
+import RadioComponent from './components/radio'
+import CheckboxComponent from './components/checkbox'
 import 'react-variety-form/dist/index.css'
 
 const App = () => {
@@ -17,6 +22,11 @@ const App = () => {
         </div>
       </div>
       <TextBoxComponent />
+      <TextAreaComponent />
+      <SelectComponent />
+      <SelectSearchComponent />
+      <RadioComponent />
+      <CheckboxComponent />
     </div>
   )
 }

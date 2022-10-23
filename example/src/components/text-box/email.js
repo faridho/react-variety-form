@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TextBox } from 'react-variety-form'
-import UseFormInput from './use-form-input'
+import UseFormInput from '../use-form-input'
 
 const Email = () => {
   const email = UseFormInput('')
@@ -10,7 +10,7 @@ const Email = () => {
       <div className=' text-gray-black-100 text-sm pt-5'>
         <div className='font-bold'>Email</div>
         <p>
-          Format email is important when you will send email to your customer continously.
+          Sometimes we need to give validation for email input before send as payload api.
         </p>
       </div>
       <div className='border border-gray-rof-200 rounded-t-md p-5 mt-5'>
