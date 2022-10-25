@@ -1,48 +1,38 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { ArrowDown } from '../utils'
+import { ArrowDown } from './const/index'
+import useForm from './utils/use-form'
+import Error from './renders/error'
+import Required from './renders/required'
 
 export const SelectComponent = (props) => {
-  const [value, setValue] = useState(props.selected)
-  const [mandatory, setMandatory] = useState(false)
+  const select = useForm(props.selected, false, false)
+  const value = select.value
+  const setValue = select.setValue
+  const isMandatory = select.mandatory
+  const setIsMandatory = select.setMandatory
+
   const changeValue = (e) => {
     const newValue = e.target.value
   
     if (props.isRequired && newValue.length <= 0) {
-      setMandatory(true)
+      setIsMandatory(true)
       setValue(newValue)
       props.onChange(newValue)
     } else {
-      setMandatory(false)
+      setIsMandatory(false)
       setValue(newValue)
       props.onChange(newValue)
     }
   }
-  let error
-  if (props.isError) {
-    error = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.errorCause}
-      </p>
-    )
-  }
-
+ 
   useEffect(() => {
     props.onChange(value)
   })
 
-  let mandatoryError
-  if (mandatory) {
-    mandatoryError = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.mandatoryMessage}
-      </p>
-    )
-  }
-
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   const options = props.data.map((item, index) => (
@@ -56,7 +46,7 @@ export const SelectComponent = (props) => {
         {required}
       </div>
       <select
-        className={`border ${props.isError || mandatory ? 'border-red-rof-100' : 'border-gray-rof-200'} w-full ${
+        className={`border ${props.isError || isMandatory ? 'border-red-rof-100' : 'border-gray-rof-200'} w-full ${
           props.isDisabled && 'bg-gray-rof-100 cursor-not-allowed'
         } ${props.isRounded && 'rounded-md'} p-2`}
         style={Arrow}
@@ -68,8 +58,8 @@ export const SelectComponent = (props) => {
         {options}
       </select>
       <div className='text-center mt-1'>
-        {error}
-        {mandatoryError}
+        <Error isError={props.isError} errorCause={props.errorCause} />
+        <Error isError={isMandatory} errorCause={props.mandatoryMessage} />
       </div>
     </div>
   )

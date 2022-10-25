@@ -1,74 +1,61 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import useForm from './utils/use-form'
+import Error from './renders/error'
+import Required from './renders/required'
+import CountDown from './renders/countdown'
 
 export const TextBoxComponent = (props) => {
-  const [value, setValue] = useState('')
-  const [mandatory, setMandatory] = useState(false)
-  const [errorEmail, setErrorEmail] = useState(false)
-
+  const textBox = useForm('', false, false)
+  const value = textBox.value
+  const setValue = textBox.setValue
+  const isMandatory = textBox.mandatory
+  const setIsMandatory = textBox.setMandatory
+  const errorEmail = textBox.errorEmail
+  const setErrorEmail = textBox.setErrorEmail
+  
   const onChange = (e) => {
     const newValue = e.target.value
+    const phoneValue = newValue.replace(/[^0-9.]+/g, '')
+
     if (props.isRequired && newValue.length <= 0) {
-      setMandatory(true)
+      setIsMandatory(true)
       setErrorEmail(false)
       setValue(newValue)
+
       props.onChange(newValue)
     } else if (props.isEmail && newValue.length > 0) {
       const isError = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue)
       isError ? setErrorEmail(true) : setErrorEmail(false)
-
+      setIsMandatory(false)
       setValue(newValue)
-      setMandatory(false)
+
       props.onChange(newValue)
     } else if (props.isNumberOnly) {
-      setValue(newValue.replace(/[^0-9.]+/g, ''))
-      props.onChange(newValue.replace(/[^0-9.]+/g, ''))
+      setIsMandatory(false)
+      setErrorEmail(false)
+      setValue(phoneValue)
+
+      props.onChange(phoneValue)
     } else {
+      setIsMandatory(false)
+      setErrorEmail(false)
       setValue(newValue)
+
       props.onChange(newValue)
     }
   }
 
-  let error
-  if (props.isError) {
-    error = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.errorCause}
-      </p>
-    )
-  }
-
-  let mandatoryError
-  if (mandatory) {
-    mandatoryError = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.mandatoryMessage}
-      </p>
-    )
-  }
-
-  let errorEmailMessage
-  if (errorEmail) {
-    errorEmailMessage = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.emailErrorMessage}
-      </p>
-    )
-  }
-
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   let countDown
   if (props.countDown) {
-    countDown = (
-      <p className='text-sm float-right text-gray-rof-300'>
-        {value.length}/{props.maxLength}
-      </p>
-    )
+    countDown = <CountDown collect={value.length} total={props.maxLength} />
   }
+
   return (
     <div>
       <div className='flex font-bold text-sm pb-1'>
@@ -79,7 +66,7 @@ export const TextBoxComponent = (props) => {
         className={`w-full border border-solid ${
           props.isDisabled && 'bg-gray-rof-100'
         } ${
-          props.isError || mandatory || errorEmail
+          props.isError || isMandatory || errorEmail
             ? 'border-red-rof-100'
             : 'border-gray-rof-200'
         } p-1 ${props.isRounded && 'rounded-md'}`}
@@ -97,9 +84,9 @@ export const TextBoxComponent = (props) => {
         />
       </div>
       <div className='text-center mt-1 pb-1'>
-        {error}
-        {mandatoryError}
-        {errorEmailMessage}
+        <Error isError={props.isError} errorCause={props.errorCause} />
+        <Error isError={isMandatory} errorCause={props.mandatoryMessage} />
+        <Error isError={errorEmail} errorCause={props.emailErrorMessage} />
         {countDown}
       </div>
     </div>

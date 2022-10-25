@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import Required from './renders/required'
 
 export const CheckboxComponent = (props) => {
   const [status, setStatus] = useState(false)
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   const handleChange = (e) => {

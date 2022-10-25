@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Required from './renders/required'
 
 export const RadioComponent = (props) => {
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   const handleChange = (e) => {

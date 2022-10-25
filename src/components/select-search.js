@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Icon } from './icons'
+import useForm from './utils/use-form'
+import Error from './renders/error'
+import Required from './renders/required'
 
 export const SelectSearchComponent = (props) => {
-  const [display, setDisplay] = useState({
+  const selectSearch = useForm({
     name: props.direction,
     value: ''
-  })
-
+  }, false, false)
+  const display = selectSearch.value
+  const setDisplay = selectSearch.setValue
+  
   const ref = useRef(null)
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -46,14 +51,9 @@ export const SelectSearchComponent = (props) => {
     }
   }
 
-  let error
-  if (props.isError) {
-    error = <p className='text-sm ml-2 text-red-rof-100'>{props.errorCause}</p>
-  }
-
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   const setSelected = (name, value) => {
@@ -122,7 +122,7 @@ export const SelectSearchComponent = (props) => {
             className={`w-full focus:outline-none text-sm`}
           />
         </div>
-        {error}
+        <Error isError={props.isError} errorCause={props.errorCause} />
         <ul className='overflow-y-auto frame  h-40'>{listOptions}</ul>
       </div>
     )

@@ -1,53 +1,38 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import useForm from './utils/use-form'
+import Error from './renders/error'
+import Required from './renders/required'
+import CountDown from './renders/countdown'
 
 export const TextAreaComponent = (props) => {
-  const [value, setValue] = useState('')
-  const [mandatory, setMandatory] = useState(false)
+  const textArea = useForm('', false, false)
+  const value = textArea.value
+  const setValue = textArea.setValue
+  const isMandatory = textArea.mandatory
+  const setIsMandatory = textArea.setMandatory
 
   const onChange = (e) => {
     const newValue = e.target.value
     if (props.isRequired && newValue.length <= 0) {
-      setMandatory(true)
+      setIsMandatory(true)
       setValue(newValue)
       props.onChange(newValue)
     } else {
-      setMandatory(false)
+      setIsMandatory(false)
       setValue(newValue)
       props.onChange(newValue)
     }
   }
 
-  let error
-  if (props.isError) {
-    error = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.errorCause}
-      </p>
-    )
-  }
-
   let required
   if (props.isRequired) {
-    required = <span className='pl-1 text-red-rof-100'>*</span>
+    required = <Required />
   }
 
   let countDown
   if (props.countDown) {
-    countDown = (
-      <p className='text-sm float-right text-gray-rof-300'>
-        {value.length}/{props.maxLength}
-      </p>
-    )
-  }
-
-  let mandatoryError
-  if (mandatory) {
-    mandatoryError = (
-      <p className='text-sm pl-1 text-red-rof-100 float-left'>
-        {props.mandatoryMessage}
-      </p>
-    )
+    countDown = <CountDown collect={value.length} total={props.maxLength} />
   }
 
   return (
@@ -59,7 +44,7 @@ export const TextAreaComponent = (props) => {
       <div
         className={`w-full border border-solid ${
           props.isDisabled && 'bg-gray-rof-100'
-        } ${props.isError || mandatory ? 'border-red-rof-100' : 'border-gray-rof-200'} p-1 ${
+        } ${props.isError || isMandatory ? 'border-red-rof-100' : 'border-gray-rof-200'} p-1 ${
           props.isRounded && 'rounded-md'
         }`}
       >
@@ -78,8 +63,8 @@ export const TextAreaComponent = (props) => {
         />
       </div>
       <div className='text-center mt-1'>
-        {error}
-        {mandatoryError}
+        <Error isError={props.isError} errorCause={props.errorCause} />
+        <Error isError={isMandatory} errorCause={props.mandatoryMessage} />
         {countDown}
       </div>
     </div>
