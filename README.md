@@ -4,6 +4,9 @@ Sometimes in our work, we are forced to go extra fast to finish our project beca
 
 [![NPM](https://img.shields.io/npm/v/react-variety-form.svg)](https://www.npmjs.com/package/react-variety-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Demo
+Visit to [Live Preview](https://react-variety-form-doc.netlify.app)
+
 ## Install
 
 ```bash
