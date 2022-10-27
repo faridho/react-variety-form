@@ -7,7 +7,7 @@ Sometimes in our work, we are forced to go extra fast to finish our project beca
 ## Install
 
 ```bash
-npm install --save react-variety-form
+npm install react-variety-form
 ```
 
 ## Example Usage
