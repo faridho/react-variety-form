@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const CountDown = (props) => {
+const Progress = (props) => {
   return (
     <p className='text-sm float-right text-gray-rof-300'>
-      {props.collect}/{props.total}
+      {props.progress}/{props.total}
     </p>
   )
 }
 
-CountDown.defaultProps = {
-  collect: 0,
+Progress.defaultProps = {
+  progress: 0,
   total: 0
 }
 
-CountDown.propTypes = {
-  collect: PropTypes.number,
+Progress.propTypes = {
+  progress: PropTypes.number,
   total: PropTypes.number
 }
 
-export default CountDown
+export default Progress

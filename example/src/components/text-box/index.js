@@ -3,7 +3,7 @@ import Basic from './basic'
 import Required from './required'
 import Email from "./email"
 import Number from './number'
-import CountDown from './countdown'
+import Progress from './progress'
 import Disable from './disable'
 
 const TextBoxComponent = () => {
@@ -21,7 +21,7 @@ const TextBoxComponent = () => {
           <Required />
           <Email />
           <Number />
-          <CountDown />
+          <Progress />
           <Disable />
         </div>
       </div>

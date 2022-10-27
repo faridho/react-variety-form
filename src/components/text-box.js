@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import useForm from './utils/use-form'
 import Error from './renders/error'
 import Required from './renders/required'
-import CountDown from './renders/countdown'
+import Progress from './renders/progress'
 
 export const TextBoxComponent = (props) => {
   const textBox = useForm('', false, false)
@@ -51,9 +51,9 @@ export const TextBoxComponent = (props) => {
     required = <Required />
   }
 
-  let countDown
-  if (props.countDown) {
-    countDown = <CountDown collect={value.length} total={props.maxLength} />
+  let progress
+  if (props.progress) {
+    progress = <Progress progress={value.length} total={props.maxLength} />
   }
 
   return (
@@ -87,7 +87,7 @@ export const TextBoxComponent = (props) => {
         <Error isError={props.isError} errorCause={props.errorCause} />
         <Error isError={isMandatory} errorCause={props.mandatoryMessage} />
         <Error isError={errorEmail} errorCause={props.emailErrorMessage} />
-        {countDown}
+        {progress}
       </div>
     </div>
   )
@@ -96,17 +96,17 @@ export const TextBoxComponent = (props) => {
 TextBoxComponent.defaultProps = {
   type: 'text',
   placeholder: 'Type here',
-  maxLength: 1000,
+  maxLength: 255,
   isNumberOnly: false,
   isEmail: false,
   emailErrorMessage: 'Format email is wrong!',
   isError: false,
-  errorCause: 'Please enter data correctly',
+  errorCause: 'Please enter data correctly!',
+  isRequired: false,
   mandatoryMessage: 'Field is required!',
   label: 'Full Name',
   value: '',
-  isRequired: false,
-  countDown: false,
+  progress: false,
   isRounded: false,
   isDisabled: false,
   onChange: () => {}
@@ -121,11 +121,11 @@ TextBoxComponent.propTypes = {
   emailErrorMessage: PropTypes.string,
   isError: PropTypes.bool,
   errorCause: PropTypes.string,
+  isRequired: PropTypes.bool,
   mandatoryMessage: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
-  isRequired: PropTypes.bool,
-  countDown: PropTypes.bool,
+  progress: PropTypes.bool,
   isRounded: PropTypes.bool,
   isDisabled: PropTypes.bool
 }

@@ -26,6 +26,7 @@ const Basic = () => {
       <div className='border border-gray-rof-200 rounded-t-md p-5 mt-5'>
         <Select
           data={genders}
+          label="Gender"
           name='name'
           value='value'
           selected='male'

@@ -31,7 +31,7 @@ export const CheckboxComponent = (props) => {
           } rounded border-gray-rof-200 focus:ring-blue-500 focus:ring-2`}
         />
         <label className='ml-2 text-sm font-medium text-gray-900'>
-          {props.term}
+          {props.statement}
         </label>
       </div>
     </div>
@@ -41,7 +41,7 @@ export const CheckboxComponent = (props) => {
 CheckboxComponent.defaultProps = {
   label: 'Agree',
   isRequired: false,
-  term: 'I am agree with the terms and conditions',
+  statement: 'I am agree with the statements and conditions',
   isDisabled: false,
   onChange: () => {}
 }
@@ -49,6 +49,6 @@ CheckboxComponent.defaultProps = {
 CheckboxComponent.propTypes = {
   label: PropTypes.string,
   isRequired: PropTypes.bool,
-  term: PropTypes.string,
+  statement: PropTypes.string,
   isDisabled: PropTypes.bool
 }

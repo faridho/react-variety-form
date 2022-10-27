@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import useForm from './utils/use-form'
 import Error from './renders/error'
 import Required from './renders/required'
-import CountDown from './renders/countdown'
+import Progress from './renders/progress'
 
 export const TextAreaComponent = (props) => {
   const textArea = useForm('', false, false)
@@ -30,9 +30,9 @@ export const TextAreaComponent = (props) => {
     required = <Required />
   }
 
-  let countDown
-  if (props.countDown) {
-    countDown = <CountDown collect={value.length} total={props.maxLength} />
+  let progress
+  if (props.progress) {
+    progress = <Progress progress={value.length} total={props.maxLength} />
   }
 
   return (
@@ -65,7 +65,7 @@ export const TextAreaComponent = (props) => {
       <div className='text-center mt-1'>
         <Error isError={props.isError} errorCause={props.errorCause} />
         <Error isError={isMandatory} errorCause={props.mandatoryMessage} />
-        {countDown}
+        {progress}
       </div>
     </div>
   )
@@ -73,14 +73,14 @@ export const TextAreaComponent = (props) => {
 
 TextAreaComponent.defaultProps = {
   placeholder: 'Type here',
-  maxLength: 1000,
+  maxLength: 500,
   isError: false,
-  errorCause: 'Please enter the data correctly',
+  errorCause: 'Please enter the data correctly!',
   label: 'Address',
   value: '',
   isRequired: false,
   mandatoryMessage: 'Field is required!',
-  countDown: false,
+  progress: false,
   rows: 5,
   isRounded: false,
   isDisabled: false,
@@ -96,7 +96,7 @@ TextAreaComponent.propTypes = {
   value: PropTypes.string,
   isRequired: PropTypes.bool,
   mandatoryMessage: PropTypes.string,
-  countDown: PropTypes.bool,
+  progress: PropTypes.bool,
   rows: PropTypes.number,
   isRounded: PropTypes.bool,
   isDisabled: PropTypes.bool

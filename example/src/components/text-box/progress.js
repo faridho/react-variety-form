@@ -2,7 +2,7 @@ import React from 'react'
 import { TextBox } from 'react-variety-form'
 import UseFormInput from '../use-form-input'
 
-const CountDown = () => {
+const Progress = () => {
   const status = UseFormInput('')
 
   return (
@@ -18,7 +18,7 @@ const CountDown = () => {
           label='Short Status'
           maxLength={50}
           isRounded
-          countDown
+          progress
           placeholder='What do you think?'
           onChange={status.onChange}
         />
@@ -38,4 +38,4 @@ const CountDown = () => {
   )
 }
 
-export default CountDown
+export default Progress

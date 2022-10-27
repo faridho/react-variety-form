@@ -66,16 +66,16 @@ export const SelectComponent = (props) => {
 }
 
 SelectComponent.defaultProps = {
-  label: 'Gender',
+  label: 'Category',
   isError: false,
-  errorCause: 'Please select the data correctly',
+  errorCause: 'Please select the data correctly!',
   isRequired: false,
   isRounded: false,
   isDisabled: false,
   data: [],
   name: '',
   value: '',
-  direction: 'Select Gender',
+  direction: 'Select a category',
   mandatoryMessage: 'Field is required!',
   selected: '',
   onChange: () => {}

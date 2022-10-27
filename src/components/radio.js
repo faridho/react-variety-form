@@ -46,7 +46,7 @@ RadioComponent.defaultProps = {
   label: 'Gender',
   isRequired: false,
   options: ['Male', 'Female'],
-  name: 'gender',
+  name: 'select-name',
   isColumn: false,
   isDisabled: false,
   onChange: () => {}
